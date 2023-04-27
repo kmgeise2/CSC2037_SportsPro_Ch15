@@ -1,0 +1,84 @@
+﻿@model IncidentViewModel
+@{
+    string title = Model.Action + " Incident";
+    ViewBag.Title = title;
+}
+
+@section scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+
+<h1>@ViewBag.Title</h1>
+
+<form asp-action="Save" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="row mb-3">
+        <label asp-for="Incident.CustomerID" class="col-form-label col-md-2">Customer</label>
+        <div class="col">
+            <select asp-for="Incident.CustomerID" class="form-select"
+                    asp-items="@(new SelectList(Model.Customers,
+                         "CustomerID", "FullName"))">
+                <option value="">Select a customer...</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label asp-for="Incident.ProductID" class="col-form-label col-md-2">Product</label>
+        <div class="col">
+            <select asp-for="Incident.ProductID" class="form-select"
+                    asp-items="@(new SelectList(Model.Products, "ProductID", "Name"))">
+                <option value="">Select a product...</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label asp-for="Incident.Title" class="col-form-label col-md-2">Title</label>
+        <div class="col">
+            <input asp-for="Incident.Title" class="form-control">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label asp-for="Incident.Description" class="col-form-label col-md-2">Description</label>
+        <div class="col">
+            <textarea asp-for="Incident.Description" class="form-control"></textarea>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label asp-for="Incident.TechnicianID" class="col-form-label col-md-2">Technician</label>
+        <div class="col">
+            <select asp-for="Incident.TechnicianID" class="form-select"
+                    asp-items="@(new SelectList(Model.Technicians, "TechnicianID", "Name"))">
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label asp-for="Incident.DateOpened" class="col-form-label col-md-2">Date Opened</label>
+        <div class="col">
+            <input type="text" asp-for="Incident.DateOpened" class="form-control">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label asp-for="Incident.DateClosed" class="col-form-label col-md-2">Date Closed</label>
+        <div class="col">
+            <input type="text" asp-for="Incident.DateClosed" class="form-control">
+        </div>
+    </div>
+
+    <input type="hidden" asp-for="Incident.IncidentID" />
+
+    <div class="row">
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-action="List" class="btn btn-primary">Cancel</a>
+        </div>
+    </div>
+    
+</form>
